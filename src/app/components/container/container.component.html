@@ -1,0 +1,24 @@
+<h1>Lista de estudiantes</h1>
+<div style="margin: 0 auto; max-width: 80%;">
+  <button (click)="showAll()" style="margin-bottom: 20px; width: 100%;">{{ res_showAll ? "Ocultar ": "Mostrar " }} Alumnos</button>
+  <div *ngIf="res_showAll">
+    <ol class="list-group list-group-numbered">
+      <li class="list-group-item span" *ngFor="let alumno of ALUMNOS" [ngClass]="alumno.data.estado == 'cursando' ? 'span--green' : 'span--red'" (click)="showOne(alumno.id)">
+        <h2 *ngIf="!res_showOne[alumno.id]">{{ alumno.info.apellido + " " + alumno.info.nombre }}</h2>
+        <section *ngIf="res_showOne[alumno.id]" class="container">
+          <h2 class="title">{{ alumno.info.nombre + " " + alumno.info.apellido | uppercase }}</h2>
+          <picture class="img">
+            <img src="{{ alumno.info.image }}" alt="Imagen de: {{ alumno.info.apellido }}"/>
+          </picture>
+          <section class="info">
+            <p>Comisión: <span style="font-weight: bold;">{{ alumno.data.comision }}</span></p>
+            <p>Cursos: </p>
+            <ul class="info__courses">
+              <li *ngFor="let curso of alumno.data.cursos"><button class="btn btn-primary">{{ curso }}</button></li>
+            </ul>
+          </section>
+        </section>
+      </li>
+    </ol>
+  </div>
+</div>
